@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+    font-family: Calibri, Helvetica, sans-serif;
+    width: 1000px;
+    margin: 0 auto;
+    background: rgb(250, 250, 250);
+}
+
+h1 {
+    color: #fff;
+    text-align: center;
+    font-family: Cambria, Helvetica, sans-serif;
+    letter-spacing: 0.1em;
+    font-size: 2.5em;
+  }
+
+p {
+    font-size: 1.3em;
+}

@@ -1,0 +1,16 @@
+<h1>
+  {{ name | uppercase}}
+  <hr>
+  {{ surname | uppercase}}
+</h1>
+<nav>
+  <ul>
+    <li *ngFor="let item of items" [class.selected]="item === selectedItem" (click)="onSelect(item)">
+      <a routerLink="/{{item}}">{{item | uppercase}}</a>
+    </li>
+  </ul>
+</nav>
+<div class='portfolio'>
+  <h3>Portfolio:</h3>
+  https://romanhavr.github.io
+</div>

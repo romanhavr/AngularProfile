@@ -1,0 +1,18 @@
+<h2>FEEDBACKS</h2>
+<br>
+<div *ngIf="feedbacks.length">
+  <div *ngFor="let feedback of feedbacks; let i=index">
+      <h3>Feedback #{{i+1}}</h3>
+    <p>{{feedback}}</p>
+    <hr>
+  </div>
+</div>
+<div>
+  <label>
+    <h3>Leave feedback here:</h3>
+    <br>
+    <textarea [(ngModel)]="feedback" placeholder="Feedback..."></textarea>
+  </label>
+  <br>
+  <button (click)="onClick(feedback)">Leave Feedback</button>
+</div>
