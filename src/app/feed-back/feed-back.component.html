@@ -2,17 +2,47 @@
 <br>
 <div *ngIf="feedbacks.length">
   <div *ngFor="let feedback of feedbacks; let i=index">
-      <h3>Feedback #{{i+1}}</h3>
+    <h3>Feedback #{{i+1}}</h3>
+    <p>{{formData.name}}</p>
+    <p>{{formData.email}}</p>
+    <p>{{formData.date}}</p>
+    <p>{{formData.salary}}</p>
     <p>{{feedback}}</p>
     <hr>
   </div>
 </div>
-<div>
-  <label>
-    <h3>Leave feedback here:</h3>
+<form [formGroup]="formData" (ngSubmit)="onSubmit(formData)">
+  <div>
+    <!--directive for highlighting button on hover-->
+    <div>
+      <label for='name'>Name:</label>
+      <br>
+      <input type="text" formControlName="name" id="name" placeholder="Name" required>
+    </div>
+    <div>
+      <label for="email">Email:</label>
+      <br>
+      <input type="email" formControlName="email" id="email" placeholder="Email" required>
+    </div>
+    <div>
+      <label for="birthday">Date of birth:</label>
+      <br>
+      <input type="date" formControlName="birthday" id="birthday">
+    </div>
+    <div>
+      <label for="salary">Salary (KGS):</label>
+      <br>
+      <input type="number" max="1000000" min="0.00" formControlName="salary" id="salary"placeholder="Salary" >
+    </div>
     <br>
-    <textarea [(ngModel)]="feedback" placeholder="Feedback..."></textarea>
-  </label>
+    <div>
+      <label for="feedback">
+        Leave feedback here:
+      </label>
+      <br>
+      <textarea formControlName="feedback" placeholder="Feedback..." required id="feedback"></textarea>
+    </div>
+  </div>
   <br>
-  <button (click)="onClick(feedback)">Leave Feedback</button>
-</div>
+  <button type="submit">Leave Feedback</button>
+</form>

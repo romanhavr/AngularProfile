@@ -7,6 +7,14 @@ h3 {
     margin-bottom: 0;
 }
 
+input {
+    width: 300px;
+}
+
+.ng-invalid.ng-touched {
+    border-color: rgb(255, 171, 76);
+}
+
 textarea {
     width: 300px;
     height: 100px;
