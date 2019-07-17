@@ -1,11 +1,23 @@
 <h2>FEEDBACKS</h2>
-<br>
+<label for="currency">Currency: </label>
+<!-- <select ng-options="for currency in currencies" ng-model="selected"></select> -->
+<select name="currency" id="currency" [(ngModel)]="currentCurrency">
+  <option *ngFor="let currency of currencies; let i=index" [value]="currency">
+    {{currency}}
+  </option>
+</select>
+<p></p>
 <div *ngIf="feedbacks.length">
   <div *ngFor="let feedback of feedbacks; let i=index">
     <h3>Feedback #{{i+1}}</h3>
     <span>Written by <b>{{feedback.name}}</b>. </span>
     <span>Email: <i>{{feedback.email}}. </i></span>
-    <span *ngIf="feedback.birthday">Born in <u>{{feedback.birthday}}</u>.</span>
+    <span *ngIf="feedback.birthday">Born in <u>{{feedback.birthday}}</u>. </span>
+    <span *ngIf="feedback.salary" [ngSwitch]="currentCurrency">
+      <span *ngSwitchCase="'USD'">Salary <u>{{(feedback.salary / 60).toFixed(2)}} {{currentCurrency}}</u>.</span>
+      <span *ngSwitchCase="'KGS'">Salary <u>{{feedback.salary.toFixed(2)}} {{currentCurrency}}</u>.</span>
+      <span *ngSwitchCase="'UAH'">Salary <u>{{(feedback.salary * 0.4).toFixed(2)}} {{currentCurrency}}</u>.</span>
+    </span>
     <p>{{feedback.feedback}}</p>
     <hr>
   </div>
@@ -31,20 +43,15 @@
       <label for="birthday">Date of birth:</label>
       <br>
       <input type="date" formControlName="birthday" id="birthday">
-      <app-validation-error-message 
-      [displayError]="isFieldValid('birthday')"
-      errorMsg="You must be aged 18+ !"
-    >
+      <app-validation-error-message [displayError]="isFieldValid('birthday')" errorMsg="You must be aged 18+ !">
       </app-validation-error-message>
     </div>
     <div>
       <label for="salary">Salary (KGS):</label>
       <br>
       <input type="number" max="1000000" min="0.00" formControlName="salary" id="salary" placeholder="Salary">
-      <app-validation-error-message 
-      [displayError]="isFieldValid('salary')"
-      errorMsg="Your salary should be not more than 1kk KGS."
-    >
+      <app-validation-error-message [displayError]="isFieldValid('salary')"
+        errorMsg="Your salary should be not more than 1kk KGS.">
       </app-validation-error-message>
     </div>
     <br>
@@ -54,10 +61,7 @@
       </label>
       <br>
       <textarea formControlName="feedback" placeholder="Feedback..." required id="feedback"></textarea>
-      <app-validation-error-message 
-      [displayError]="isFieldValid('feedback')"
-      errorMsg="Please write some feedback."
-    >
+      <app-validation-error-message [displayError]="isFieldValid('feedback')" errorMsg="Please write some feedback.">
       </app-validation-error-message>
     </div>
   </div>

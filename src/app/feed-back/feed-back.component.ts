@@ -17,17 +17,29 @@ export class FeedBackComponent implements OnInit {
     salary: new FormControl('', formSlaryValidation()),
     feedback: new FormControl()
   });
+  currencies = ['USD', 'UAH', 'KGS'];
+  currencyIndex: number;
+  currentCurrency = 'KGS';
+  salary: number;
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit() {
   }
 
   onSubmit(data): void {
+    switch (this.currentCurrency) {
+      case 'KGS': this.salary = data.controls.salary.value;
+        break;
+      case 'USD': this.salary = data.controls.salary.value / 60;
+        break;
+      case 'UAH': this.salary = data.controls.salary.value * 0.4;
+    }
     this.feedbacks.push({
       name: data.controls.name.value,
       email: data.controls.email.value,
       birthday: data.controls.birthday.value,
+      salary: this.salary,
       feedback: data.controls.feedback.value,
     });
     this.feedback = null;
