@@ -13,6 +13,8 @@ import { TrainingComponent } from './training/training.component';
 import { TechnologyProfileComponent } from './technology-profile/technology-profile.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { FeedBackComponent } from './feed-back/feed-back.component';
+import { ValidationErrorMessageComponent } from './validation-error-message/validation-error-message.component';
+import { HighlightDirective } from './highlight.directive';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { FeedBackComponent } from './feed-back/feed-back.component';
     TrainingComponent,
     TechnologyProfileComponent,
     ContactsComponent,
-    FeedBackComponent
+    FeedBackComponent,
+    ValidationErrorMessageComponent,
+    HighlightDirective
   ],
   imports: [
     BrowserModule,

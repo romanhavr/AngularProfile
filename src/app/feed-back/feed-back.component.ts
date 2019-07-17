@@ -24,10 +24,18 @@ export class FeedBackComponent implements OnInit {
   }
 
   onSubmit(data): void {
-    if (!data.controls.feedback.value) { return; }
-    this.feedbacks.push(data.controls.feedback.value);
+    this.feedbacks.push({
+      name: data.controls.name.value,
+      email: data.controls.email.value,
+      birthday: data.controls.birthday.value,
+      feedback: data.controls.feedback.value,
+    });
     this.feedback = null;
 
     this.formData.reset();
+  }
+
+  isFieldValid(field: string) {
+    return !this.formData.get(field).valid && this.formData.get(field).touched;
   }
 }

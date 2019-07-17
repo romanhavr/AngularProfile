@@ -3,46 +3,64 @@
 <div *ngIf="feedbacks.length">
   <div *ngFor="let feedback of feedbacks; let i=index">
     <h3>Feedback #{{i+1}}</h3>
-    <p>{{formData.name}}</p>
-    <p>{{formData.email}}</p>
-    <p>{{formData.date}}</p>
-    <p>{{formData.salary}}</p>
-    <p>{{feedback}}</p>
+    <span>Written by <b>{{feedback.name}}</b>. </span>
+    <span>Email: <i>{{feedback.email}}. </i></span>
+    <span *ngIf="feedback.birthday">Born in <u>{{feedback.birthday}}</u>.</span>
+    <p>{{feedback.feedback}}</p>
     <hr>
   </div>
 </div>
-<form [formGroup]="formData" (ngSubmit)="onSubmit(formData)">
+<form [formGroup]="formData" (ngSubmit)="onSubmit(formData)" #form="ngForm">
   <div>
     <!--directive for highlighting button on hover-->
     <div>
-      <label for='name'>Name:</label>
+      <label for='name'>Name: *</label>
       <br>
       <input type="text" formControlName="name" id="name" placeholder="Name" required>
+      <app-validation-error-message [displayError]="isFieldValid('name')" errorMsg="Please inform your name.">
+      </app-validation-error-message>
     </div>
     <div>
-      <label for="email">Email:</label>
+      <label for="email">Email: *</label>
       <br>
       <input type="email" formControlName="email" id="email" placeholder="Email" required>
+      <app-validation-error-message [displayError]="isFieldValid('email')" errorMsg="Please inform your correct email.">
+      </app-validation-error-message>
     </div>
     <div>
       <label for="birthday">Date of birth:</label>
       <br>
       <input type="date" formControlName="birthday" id="birthday">
+      <app-validation-error-message 
+      [displayError]="isFieldValid('birthday')"
+      errorMsg="You must be aged 18+ !"
+    >
+      </app-validation-error-message>
     </div>
     <div>
       <label for="salary">Salary (KGS):</label>
       <br>
-      <input type="number" max="1000000" min="0.00" formControlName="salary" id="salary"placeholder="Salary" >
+      <input type="number" max="1000000" min="0.00" formControlName="salary" id="salary" placeholder="Salary">
+      <app-validation-error-message 
+      [displayError]="isFieldValid('salary')"
+      errorMsg="Your salary should be not more than 1kk KGS."
+    >
+      </app-validation-error-message>
     </div>
     <br>
     <div>
       <label for="feedback">
-        Leave feedback here:
+        Leave feedback here: *
       </label>
       <br>
       <textarea formControlName="feedback" placeholder="Feedback..." required id="feedback"></textarea>
+      <app-validation-error-message 
+      [displayError]="isFieldValid('feedback')"
+      errorMsg="Please write some feedback."
+    >
+      </app-validation-error-message>
     </div>
   </div>
   <br>
-  <button type="submit">Leave Feedback</button>
+  <button type="submit" [disabled]="!form.valid" appHighlight>Leave Feedback</button>
 </form>
