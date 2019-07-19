@@ -8,7 +8,7 @@ export function formEmailValidation(): ValidatorFn {
     };
 }
 
-export function formSlaryValidation(): ValidatorFn {
+export function formSalaryValidation(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
         return (control.value > 1000000) ? { salary: { value: control.value } } : null;
     };

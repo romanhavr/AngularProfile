@@ -1,7 +1,7 @@
 <h2>FEEDBACKS</h2>
 <label for="currency">Currency: </label>
 <!-- <select ng-options="for currency in currencies" ng-model="selected"></select> -->
-<select name="currency" id="currency" [(ngModel)]="currentCurrency">
+  <select name="currency" id="currency" [(ngModel)]="currentCurrency" (change)="onChange()">
   <option *ngFor="let currency of currencies; let i=index" [value]="currency">
     {{currency}}
   </option>
@@ -14,9 +14,9 @@
     <span>Email: <i>{{feedback.email}}. </i></span>
     <span *ngIf="feedback.birthday">Born in <u>{{feedback.birthday}}</u>. </span>
     <span *ngIf="feedback.salary" [ngSwitch]="currentCurrency">
-      <span *ngSwitchCase="'USD'">Salary <u>{{(feedback.salary / 60).toFixed(2)}} {{currentCurrency}}</u>.</span>
-      <span *ngSwitchCase="'KGS'">Salary <u>{{feedback.salary.toFixed(2)}} {{currentCurrency}}</u>.</span>
-      <span *ngSwitchCase="'UAH'">Salary <u>{{(feedback.salary * 0.4).toFixed(2)}} {{currentCurrency}}</u>.</span>
+      <span *ngSwitchCase="'USD'">Salary <u>{{feedback.salary / 60 | currency: currentCurrency : code}}</u>.</span>
+      <span *ngSwitchCase="'KGS'">Salary <u>{{feedback.salary | currency: currentCurrency : code}}</u>.</span>
+      <span *ngSwitchCase="'UAH'">Salary <u>{{feedback.salary * 0.4 | currency: currentCurrency : code}}</u>.</span>
     </span>
     <p>{{feedback.feedback}}</p>
     <hr>
@@ -47,10 +47,25 @@
       </app-validation-error-message>
     </div>
     <div>
-      <label for="salary">Salary (KGS):</label>
+      <label for="salary">Salary ({{currentCurrency}}):</label>
       <br>
-      <input type="number" max="1000000" min="0.00" formControlName="salary" id="salary" placeholder="Salary">
-      <app-validation-error-message [displayError]="isFieldValid('salary')"
+      <input 
+        type="number"
+        formControlName="salary"
+        (change)="onChange()"
+        max="1000000"
+        min="0.00"
+        id="salary"
+        placeholder="Salary"
+      >
+      <br>
+      <input *ngIf="false"
+        type="number"
+        formControlName="salaryKGS"
+        id="salaryKGS"
+        >
+      <span>{{formData.get('salary').value | currencyConvert: currentCurrency | currency: 'KGS'}}</span>
+      <app-validation-error-message [displayError]="isFieldValid('salaryKGS')"
         errorMsg="Your salary should be not more than 1kk KGS.">
       </app-validation-error-message>
     </div>

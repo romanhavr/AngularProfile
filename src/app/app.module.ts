@@ -15,6 +15,7 @@ import { ContactsComponent } from './contacts/contacts.component';
 import { FeedBackComponent } from './feed-back/feed-back.component';
 import { ValidationErrorMessageComponent } from './validation-error-message/validation-error-message.component';
 import { HighlightDirective } from './highlight.directive';
+import { CurrencyConvertPipe } from './currency-convert.pipe';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { HighlightDirective } from './highlight.directive';
     ContactsComponent,
     FeedBackComponent,
     ValidationErrorMessageComponent,
-    HighlightDirective
+    HighlightDirective,
+    CurrencyConvertPipe
   ],
   imports: [
     BrowserModule,
